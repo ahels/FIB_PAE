@@ -1,3 +1,17 @@
 ﻿@{
-    Layout = "_Layout";
+    //Layout = "_Layout";
+
+    /* Multiple Layout Pages */
+    var routeUrl = ViewContext.RouteData.Values["Page"].ToString();
+    List<string> pages_no_layout = new List<string> { "Login" };
+    // Paginas sin layout
+    if (pages_no_layout.Any(routeUrl.Contains))
+    {
+        Layout = null;
+    }
+    else
+    {
+        Layout = "_Layout1";
+    }
+
 }

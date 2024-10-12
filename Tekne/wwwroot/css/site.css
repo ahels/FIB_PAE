@@ -19,4 +19,18 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: #0F1014;
+  color: #F5F5F5;
+}
+
+.card {
+    /*box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);*/
+    border-radius: 10px;
+    background-color: #15171C;
+    padding: 3rem;
+}
+
+.form-control-solid {
+    background-color: #1B1C22; 
+    border-width: 0px;
 }
