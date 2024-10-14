@@ -1,2 +1,3 @@
 .vs
-Tekne/obj/
+/Tekne/obj/
+/Tekne/obj/Debug/net8.0/apphost.exe

@@ -31,6 +31,19 @@ body {
 }
 
 .form-control-solid {
-    background-color: #1B1C22; 
+    background-color: #1B1C22;
+    border-width: 0px;
+    color: #9A9CAE;
+}
+
+    .form-control-solid:focus {
+        background-color: #26272F;
+        /*border-width: 0px;*/
+        box-shadow: 0px 0px;
+        color: #9A9CAE;
+    }
+
+.form-check-input:checked {
+    background-color: #0d6efd;
     border-width: 0px;
 }
