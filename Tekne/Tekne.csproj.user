@@ -5,4 +5,9 @@
     <RazorPage_SelectedScaffolderID>RazorPageScaffolder</RazorPage_SelectedScaffolderID>
     <RazorPage_SelectedScaffolderCategoryPath>root/Common/RazorPage</RazorPage_SelectedScaffolderCategoryPath>
   </PropertyGroup>
+  <ItemGroup>
+    <None Update="Resources\Resource1.es.resx">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
 </Project>

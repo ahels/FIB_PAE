@@ -7,7 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\Resource1.es.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DB\" />
     <Folder Include="wwwroot\assets\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\Resource1.es.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectManager\ProjectManager.csproj" />
   </ItemGroup>
 
 </Project>
