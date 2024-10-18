@@ -13,12 +13,13 @@ namespace Tekne.Pages
 
         public void OnGet()
         {
-            //ViewData[]
             projects = new LstProjects();
             string base_path = Directory.GetCurrentDirectory();
             projects.load_json(base_path + "\\DB\\projects.json");
             DataTable dt_prjs = projects.to_datatable();
             HtmlTable tbl = new HtmlTable("main-table", "test", dt_prjs);
+
+            ViewData["Title"] = "Projects";
             ViewData["Table"] = tbl.to_html();
         }
 
