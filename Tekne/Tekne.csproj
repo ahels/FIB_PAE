@@ -13,6 +13,7 @@
   <ItemGroup>
     <Folder Include="DB\" />
     <Folder Include="wwwroot\assets\" />
+    <Folder Include="wwwroot\lib\fontawesome\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -18,7 +18,7 @@ namespace Tekne.Pages
             string base_path = Directory.GetCurrentDirectory();
             projects.load_json(base_path + "\\DB\\projects.json");
             DataTable dt_prjs = projects.to_datatable();
-            HtmlTable tbl = new HtmlTable("test", "test", dt_prjs);
+            HtmlTable tbl = new HtmlTable("main-table", "test", dt_prjs);
             ViewData["Table"] = tbl.to_html();
         }
 

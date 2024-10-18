@@ -17,6 +17,10 @@ html {
   min-height: 100%;
 }
 
+header {
+    color: #F5F5F5;
+}
+
 body {
   margin-bottom: 60px;
   background-color: #0F1014;
@@ -28,6 +32,20 @@ body {
     border-radius: 10px;
     background-color: #15171C;
     padding: 3rem;
+}
+
+.form-control {
+    background-color: #1B1C22;
+    border-width: 0px;
+    color: #9A9CAE;
+    /*color: #fff;*/
+}
+
+.form-select {
+    background-color: #1B1C22;
+    border-width: 0px;
+    color: #9A9CAE;
+    /*color: #fff;*/
 }
 
 .form-control-solid {
@@ -46,4 +64,16 @@ body {
 .form-check-input:checked {
     background-color: #0d6efd;
     border-width: 0px;
+}
+
+.page-item.disabled .page-link {
+    background-color: transparent;
+    border: none;
+}
+
+.page-item.active .page-link {
+    background-color: #1f212a;
+    border-radius: .375rem;
+    border: none;
+    color: #9A9CAE;
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\Tekne\\Tekne.csproj": {}
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\Tekne\\Tekne.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj": {
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj",
+        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj",
         "projectName": "HtmlParser",
-        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj",
+        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj",
         "packagesPath": "C:\\Users\\cdmalta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\obj\\",
+        "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\cdmalta\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -61,18 +61,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\ProjectManager\\ProjectManager.csproj": {
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\ProjectManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\ProjectManager\\ProjectManager.csproj",
+        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\ProjectManager.csproj",
         "projectName": "ProjectManager",
-        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\ProjectManager\\ProjectManager.csproj",
+        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\ProjectManager.csproj",
         "packagesPath": "C:\\Users\\cdmalta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\ProjectManager\\obj\\",
+        "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\cdmalta\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -128,18 +128,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\Tekne\\Tekne.csproj": {
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\Tekne\\Tekne.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\Tekne\\Tekne.csproj",
+        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\Tekne\\Tekne.csproj",
         "projectName": "Tekne",
-        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\Tekne\\Tekne.csproj",
+        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\Tekne\\Tekne.csproj",
         "packagesPath": "C:\\Users\\cdmalta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\Tekne\\obj\\",
+        "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\Tekne\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\cdmalta\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -157,11 +157,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj": {
-                "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj"
+              "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj": {
+                "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj"
               },
-              "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\ProjectManager\\ProjectManager.csproj": {
-                "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\ProjectManager\\ProjectManager.csproj"
+              "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\ProjectManager.csproj": {
+                "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\ProjectManager.csproj"
               }
             }
           }
@@ -199,7 +199,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj": {}
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj": {
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj",
+        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj",
         "projectName": "HtmlParser",
-        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj",
+        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj",
         "packagesPath": "C:\\Users\\cdmalta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\obj\\",
+        "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\cdmalta\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -61,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
