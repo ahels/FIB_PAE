@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,29 @@ namespace ProjectManager
             }
 
             return true;
+        }
+
+        public DataTable to_datatable()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Created");
+            dt.Columns.Add("Updated");
+            dt.Columns.Add("State");
+
+            foreach (Project p in projects)
+            {
+                DataRow dr = dt.NewRow();
+                dr["ID"] = p.get_id();
+                dr["Name"] = p.get_name();
+                dr["Created"] = p.get_date_create().ToString();
+                dr["Updated"] = p.get_date_update().ToString();
+                dr["State"] = p.get_state().ToString();
+                dt.Rows.Add(dr);
+            }
+
+            return dt;
         }
     }
 }

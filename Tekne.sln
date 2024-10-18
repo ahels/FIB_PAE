@@ -5,9 +5,9 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tekne", "Tekne\Tekne.csproj", "{37311CBC-30F8-4A4B-80AF-769B7A43D5F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectManager", "ProjectManager\ProjectManager.csproj", "{53563CF8-EA71-47BC-97DF-941EC73B7CDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectManager", "ProjectManager\ProjectManager.csproj", "{53563CF8-EA71-47BC-97DF-941EC73B7CDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "htmlParser", "htmlParser\htmlParser.csproj", "{E6368267-5F6C-4E41-9522-8B8B06AC65EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlParser", "htmlParser\HtmlParser.csproj", "{E6368267-5F6C-4E41-9522-8B8B06AC65EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

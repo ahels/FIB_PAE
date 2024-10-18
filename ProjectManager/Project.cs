@@ -42,5 +42,13 @@
             this.date_update = date_update;
             this.state = state;
         }
+
+        #region Getters
+        public int get_id() { return id; }
+        public string get_name() { return name; }
+        public DateTime get_date_create() { return date_create; }
+        public DateTime get_date_update() { return date_update; }
+        public State get_state() { return state; }
+        #endregion Getters
     }
 }

@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\htmlParser\HtmlParser.csproj" />
     <ProjectReference Include="..\ProjectManager\ProjectManager.csproj" />
   </ItemGroup>
 

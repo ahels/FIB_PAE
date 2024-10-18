@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\htmlParser.csproj": {}
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\htmlParser.csproj": {
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\htmlParser.csproj",
-        "projectName": "htmlParser",
-        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\htmlParser.csproj",
+        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj",
+        "projectName": "HtmlParser",
+        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\HtmlParser.csproj",
         "packagesPath": "C:\\Users\\cdmalta\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\tekne\\htmlParser\\obj\\",
         "projectStyle": "PackageReference",
