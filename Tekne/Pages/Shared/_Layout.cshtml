@@ -31,7 +31,7 @@
                     <div class="btn text-light">
                         <i class="fa fa-user"></i>
                     </div>
-                    <div class="btn">
+                    <div class="btn" onclick="window.location.href='/';">
                         <i class="fa-solid fa-right-from-bracket text-light"></i>
                     </div>
                     @* <div class="btn btn-info">
@@ -41,14 +41,7 @@
             </div>
         </nav>
     </header>
-    <div class="container justify-content-between d-flex pb-3">
-        <div>
-            <h1>@ViewData["Title"]</h1>
-        </div>
-        <div class="d-flex align-items-end">
-            <button class="btn btn-primary">New Project</button>
-        </div>
-    </div>
+    
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -65,7 +58,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/datatables/datatables.js"></script>
-    <script src="~/js/projects.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

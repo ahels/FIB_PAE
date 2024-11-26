@@ -4,9 +4,62 @@
 
 }
 
+<div id="content">
+    <div class="container justify-content-between d-flex pb-3">
+        <div>
+            <h1>@ViewData["Title"]</h1>
+        </div>
+        <div class="d-flex align-items-end">
+            <button class="btn btn-primary" onclick="showCreate();">New Project</button>
+        </div>
+    </div>
 
-<div>
-	@* @ViewData["Table"] *@
+    <div>
+	    @* @ViewData["Table"] *@
 
-	@Html.Raw(ViewData["Table"])
+	    @Html.Raw(ViewData["Table"])
+    </div>
 </div>
+
+
+
+<div id="create" style="display:none;">
+    <div class="container justify-content-between d-flex pb-3">
+        <div>
+            <h3>Create</h3>
+        </div>
+        <div class="d-flex align-items-end">
+            <button class="btn btn-primary mx-3" onclick="$('form').submit();">Create</button>
+            <button class="btn btn-secondary" onclick="closeCreate();">Cancel</button>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <form class="col-4">
+            <div class="form-group mb-2">
+                <label for="exampleInputEmail1">Project name</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Project name">
+            </div>
+            <div class="form-group mb-2">
+                <label for="exampleInputPassword1">Width</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Width">
+            </div>
+            <div class="form-group mb-2">
+                <label for="exampleInputPassword1">Length</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Length">
+            </div>
+            <div class="form-group mb-2">
+                <label for="exampleInputPassword1">Height</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Height">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    <script src="~/js/projects.js"></script>
+}
