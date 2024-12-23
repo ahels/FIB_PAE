@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posar Models amb el Ratolí</title>
+    <style>
+        body { margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        canvas { display: block; }
+        #sidebar {
+            width: 200px;
+            background-color: #f4f4f4;
+            border-right: 2px solid #ddd;
+            height: 100vh;
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        details {
+            margin-bottom: 20px;
+        }
+        details summary {
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .thumbnail {
+            width: 100%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        .thumbnail:hover {
+            border-color: #000000;
+        }
+        #mainCanvas {
+            margin-left: 200px;
+            width: calc(100% - 200px);
+            flex-grow: 1;
+        }
+        #controls {
+            width: 100%;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-top: 2px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        #timer {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .control-button {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+        }
+        .control-button .button-image {
+            width: 40px;
+            height: 40px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Panell lateral -->
+<div id="sidebar">
+    <details>
+        <summary>Selecciona un Model</summary>
+        <img src="box1.png" class="thumbnail" data-model="box test.glb" alt="Model 1">
+        <img src="conveyors straight final.png" class="thumbnail" data-model="conveyors straight final.glb" alt="Model 2">
+        <img src="conveyors straight 90 Rotation final.png" class="thumbnail" data-model="conveyors straight 90 Rotation final.glb" alt="Model 3">
+        <img src="Bifurcator.png" class="thumbnail" data-model="Bifurcator.glb" alt="Model 4">
+        <img src="Elevator.png" class="thumbnail" data-model="Elevator.glb" alt="Model 5">
+        <img src="Inclined conveyor.png" class="thumbnail" data-model="Inclined conveyor.glb" alt="Model 6">
+        <img src="Tall Bifurcator.png" class="thumbnail" data-model="Tall Bifurcator.glb" alt="Model 7">
+        <img src="Tall Straight  conveyor.png" class="thumbnail" data-model="Tall Straight  conveyor.glb" alt="Model 8">
+        <img src="Tall Straight 90 Rotation conveyor.png" class="thumbnail" data-model="Tall Straight 90 Rotation conveyor.glb" alt="Model 9">
+        <img src="Tall Union.png" class="thumbnail" data-model="Tall Union.glb" alt="Model 10">
+        <img src="Union2.png" class="thumbnail" data-model="Union2.glb" alt="Model 11">
+    </details>
+</div>
+
+<!-- Canvas principal -->
+<div id="mainCanvas"></div>
+
+<!-- Controls -->
+<div id="controls">
+    <button id="startButton" class="control-button">
+        <img src="start_icon.png" alt="Start" class="button-image">
+    </button>
+    <button id="pauseButton" class="control-button">
+        <img src="pause_icon.png" alt="Pausa" class="button-image">
+    </button>
+    <button id="stopButton" class="control-button">
+        <img src="stop_icon.png" alt="Detenir" class="button-image">
+    </button>
+    <button id="doubleSpeedButton" class="control-button">
+        <img src="double_speed_icon.png" alt="2x Velocitat" class="button-image">
+    </button>
+    <div id="timer">00:00:00</div>
+</div>
+
+<!-- Carregar llibreries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+<script>
+    // Escena, càmera i renderer
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
+
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 15, 15);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth - 200, window.innerHeight - 50);
+    const canvas = renderer.domElement;
+    document.getElementById('mainCanvas').appendChild(canvas);
+
+    const controls = new THREE.OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.enabled = false; // Controls desactivats per defecte
+
+    const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0); // Pla horitzontal
+    
+
+    let isCtrlPressed = false;
+    let isMousePressed = false;
+
+    // Gestiona l'activació dels controls amb Ctrl + clic del ratolí
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Control') {
+            isCtrlPressed = true;
+            if (isMousePressed) {
+                controls.enabled = true; // Activa els controls si el ratolí està prement
+            }
+        }
+    });
+
+    document.addEventListener('keyup', (event) => {
+        if (event.key === 'Control') {
+            isCtrlPressed = false;
+            controls.enabled = false; // Desactiva els controls quan es deixa anar Control
+        }
+    });
+
+    canvas.addEventListener('mousedown', () => {
+        isMousePressed = true;
+        if (isCtrlPressed) {
+            controls.enabled = true; // Activa els controls si Control està premut
+        }
+    });
+
+    canvas.addEventListener('mouseup', () => {
+        isMousePressed = false;
+        controls.enabled = false; // Desactiva els controls quan es deixa anar el clic
+    });
+
+    // Graella
+    const gridHelper = new THREE.GridHelper(20, 20);
+    gridHelper.position.set(0.5, 0.5, 0);
+    gridHelper.scale.set(1.5, 1.5, 1.5);
+    scene.add(gridHelper);
+
+    // Raycaster i variables globals
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    let dragTarget = null;
+    const models = []; // Llista de models a la escena
+
+    const loader = new THREE.GLTFLoader();
+
+    // Llum ambiental i direccional
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(10, 10, 10);
+    scene.add(ambientLight, directionalLight);
+
+    // Animació
+    function animate() {
+        controls.update();
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Funció per carregar un model
+    function loadModel(modelPath) {
+        loader.load(modelPath, (gltf) => {
+            const model = gltf.scene;
+            model.position.set(0, 0, 0);
+            model.scale.set(0.2, 0.2, 0.2);
+
+            if (modelPath === "box test.glb") { // Comprova si el model és box.glb
+                model.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.depthTest = false; // Ignora profunditat
+                        child.material.depthWrite = false; // No escriu a la profunditat
+                    }
+                });
+                model.position.y = 2; // Eleva la posició inicial
+            }
+
+            scene.add(model);
+            models.push(model); // Afegim el model a la llista
+            dragTarget = model; // Comença a seguir el ratolí
+        });
+    }
+
+    // Gestiona clics als thumbnails per carregar models
+    document.querySelectorAll('.thumbnail').forEach((thumbnail) => {
+        thumbnail.addEventListener('click', () => {
+            const modelPath = thumbnail.dataset.model;
+            loadModel(modelPath);
+        });
+    });
+
+    // Detectar moviment del model carregat
+    canvas.addEventListener("mousemove", (event) => {
+        if (dragTarget) {
+            // Convertir coordenades del ratolí a coordenades normalitzades de pantalla
+            mouse.x = ((event.clientX - canvas.offsetLeft) / canvas.clientWidth) * 2 - 1;
+            mouse.y = -((event.clientY - canvas.offsetTop) / canvas.clientHeight) * 2 + 1;
+
+            // Actualitzar el raycaster
+            raycaster.setFromCamera(mouse, camera);
+
+            // Trobar la intersecció amb el pla
+            const intersection = new THREE.Vector3();
+            raycaster.ray.intersectPlane(plane, intersection);
+
+            // Actualitzar la posició del model
+            if (intersection) {
+                dragTarget.position.copy(intersection);
+            }
+        }
+    });
+
+    // Detenir moviment en qualsevol lloc
+    document.addEventListener("mousedown", () => {
+        dragTarget = null; // Sempre atura el moviment del model
+    });
+
+    // Variables per al cronòmetre
+    let timerInterval = null;
+    let elapsedTime = 0;
+    let speedMultiplier = 1; // Controla la velocitat del cronòmetre
+
+    function formatTime(milliseconds) {
+        const totalSeconds = Math.floor(milliseconds / 1000);
+        const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+        const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+        const seconds = String(totalSeconds % 60).padStart(2, '0');
+        return `${hours}:${minutes}:${seconds}`;
+    }
+
+    function updateTimerDisplay() {
+        document.getElementById('timer').textContent = formatTime(elapsedTime);
+    }
+
+    document.getElementById('startButton').addEventListener('click', () => {
+        if (timerInterval === null) {
+            const startTime = Date.now() - elapsedTime / speedMultiplier;
+            timerInterval = setInterval(() => {
+                elapsedTime = (Date.now() - startTime) * speedMultiplier;
+                updateTimerDisplay();
+            }, 1000 / speedMultiplier);
+        }
+    });
+
+    document.getElementById('pauseButton').addEventListener('click', () => {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    });
+
+    document.getElementById('stopButton').addEventListener('click', () => {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        elapsedTime = 0;
+        updateTimerDisplay();
+    });
+
+    document.getElementById('doubleSpeedButton').addEventListener('click', () => {
+        speedMultiplier = 2;
+        if (timerInterval !== null) {
+            clearInterval(timerInterval);
+            const startTime = Date.now() - elapsedTime / speedMultiplier;
+            timerInterval = setInterval(() => {
+                elapsedTime = (Date.now() - startTime) * speedMultiplier;
+                updateTimerDisplay();
+            }, 1000 / speedMultiplier);
+        }
+    });
+
+    // Resize handler
+    window.addEventListener("resize", () => {
+        camera.aspect = (window.innerWidth - 200) / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth - 200, window.innerHeight - 50);
+    });
+</script>
+</body>
+</html>
