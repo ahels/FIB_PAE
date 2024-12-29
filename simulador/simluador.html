@@ -134,47 +134,17 @@
     document.getElementById('mainCanvas').appendChild(canvas);
 
     const controls = new THREE.OrbitControls(camera, canvas);
-    controls.enableDamping = true;
-    controls.enabled = false; // Controls desactivats per defecte
+    controls.enableDamping = true; // Moviment suau de càmera
 
-    const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0); // Pla horitzontal
+    // Crear un pla invisible per calcular interseccions
+    const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0); // Pla a Y = 0
     
 
-    let isCtrlPressed = false;
-    let isMousePressed = false;
-
-    // Gestiona l'activació dels controls amb Ctrl + clic del ratolí
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Control') {
-            isCtrlPressed = true;
-            if (isMousePressed) {
-                controls.enabled = true; // Activa els controls si el ratolí està prement
-            }
-        }
-    });
-
-    document.addEventListener('keyup', (event) => {
-        if (event.key === 'Control') {
-            isCtrlPressed = false;
-            controls.enabled = false; // Desactiva els controls quan es deixa anar Control
-        }
-    });
-
-    canvas.addEventListener('mousedown', () => {
-        isMousePressed = true;
-        if (isCtrlPressed) {
-            controls.enabled = true; // Activa els controls si Control està premut
-        }
-    });
-
-    canvas.addEventListener('mouseup', () => {
-        isMousePressed = false;
-        controls.enabled = false; // Desactiva els controls quan es deixa anar el clic
-    });
+    
 
     // Graella
     const gridHelper = new THREE.GridHelper(20, 20);
-    gridHelper.position.set(0.5, 0.5, 0);
+    gridHelper.position.set(0.5, 0, 0.5);
     gridHelper.scale.set(1.5, 1.5, 1.5);
     scene.add(gridHelper);
 
@@ -182,6 +152,8 @@
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
     let dragTarget = null;
+    let isCKeyPressed = false;
+
     const models = []; // Llista de models a la escena
 
     const loader = new THREE.GLTFLoader();
@@ -192,7 +164,7 @@
     directionalLight.position.set(10, 10, 10);
     scene.add(ambientLight, directionalLight);
 
-    // Animació
+    // Animació contínua
     function animate() {
         controls.update();
         renderer.render(scene, camera);
@@ -206,6 +178,7 @@
             const model = gltf.scene;
             model.position.set(0, 0, 0);
             model.scale.set(0.2, 0.2, 0.2);
+                
 
             if (modelPath === "box test.glb") { // Comprova si el model és box.glb
                 model.traverse((child) => {
@@ -216,10 +189,12 @@
                 });
                 model.position.y = 2; // Eleva la posició inicial
             }
+            
 
             scene.add(model);
             models.push(model); // Afegim el model a la llista
             dragTarget = model; // Comença a seguir el ratolí
+
         });
     }
 
@@ -231,30 +206,47 @@
         });
     });
 
-    // Detectar moviment del model carregat
+    // Calcular la posició exacta del cursor del ratolí en l'espai 3D
+    function calculateMousePosition(event) {
+        // Convertir coordenades del ratolí a valors normalitzats de -1 a 1
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        // Actualitzar el raycaster segons la càmera i la posició del ratolí
+        raycaster.setFromCamera(mouse, camera);
+
+        // Calcular la intersecció del raycaster amb el pla invisible
+        const intersectionPoint = new THREE.Vector3();
+        raycaster.ray.intersectPlane(plane, intersectionPoint);
+        return intersectionPoint;
+    }
+
+    // Actualitzar la posició del model perquè coincideixi exactament amb el ratolí
     canvas.addEventListener("mousemove", (event) => {
         if (dragTarget) {
-            // Convertir coordenades del ratolí a coordenades normalitzades de pantalla
-            mouse.x = ((event.clientX - canvas.offsetLeft) / canvas.clientWidth) * 2 - 1;
-            mouse.y = -((event.clientY - canvas.offsetTop) / canvas.clientHeight) * 2 + 1;
-
-            // Actualitzar el raycaster
-            raycaster.setFromCamera(mouse, camera);
-
-            // Trobar la intersecció amb el pla
-            const intersection = new THREE.Vector3();
-            raycaster.ray.intersectPlane(plane, intersection);
-
-            // Actualitzar la posició del model
-            if (intersection) {
-                dragTarget.position.copy(intersection);
-            }
+            const intersectionPoint = calculateMousePosition(event); // Obtenir la posició d'intersecció
+            dragTarget.position.set(intersectionPoint);
+            dragTarget.position.copy(intersectionPoint); // Assignar la posició exacta
+        }
+    });
+    // Aturar el moviment del model quan es fa C + clic
+    canvas.addEventListener("mousedown", (event) => {
+        if (isCKeyPressed && dragTarget) {
+            dragTarget = null; // Aturar el moviment del model
         }
     });
 
-    // Detenir moviment en qualsevol lloc
-    document.addEventListener("mousedown", () => {
-        dragTarget = null; // Sempre atura el moviment del model
+    // Capturar la tecla 'C' per activar o desactivar el moviment
+    canvas.addEventListener("keydown", (event) => {
+        if (event.key.toLowerCase() === 'c') {
+            isCKeyPressed = true; // Quan es prem la tecla 'C'
+        }
+    });
+
+    canvas.addEventListener("keyup", (event) => {
+        if (event.key.toLowerCase() === 'c') {
+            isCKeyPressed = false; // Quan es deixa anar la tecla 'C'
+        }
     });
 
     // Variables per al cronòmetre
