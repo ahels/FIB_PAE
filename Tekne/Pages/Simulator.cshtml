@@ -1,0 +1,154 @@
+﻿@page
+@model Tekne.Pages.SimulatorModel
+@{
+
+}
+
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posar Models amb el Ratolí</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #sidebar {
+            width: 200px;
+            background-color: #f4f4f4;
+            border-right: 2px solid #ddd;
+            height: 100vh;
+            overflow-y: auto;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        details {
+            margin-bottom: 20px;
+        }
+
+            details summary {
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+        .thumbnail {
+            width: 100%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+
+            .thumbnail:hover {
+                border-color: #000000;
+            }
+
+        #mainCanvas {
+            margin-left: 200px;
+            width: calc(100% - 200px);
+            height: calc(100vh - 50px);
+            flex-grow: 1;
+        }
+
+        #controls {
+            width: 100%;
+            padding: 10px;
+            height: 50px;
+            background-color: #f4f4f4;
+            border-top: 2px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #timer {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .control-button {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+        }
+
+            .control-button .button-image {
+                width: 40px;
+                height: 40px;
+                display: block;
+            }
+    </style>
+</head>
+<body>
+
+    <!-- Panell lateral -->
+    <div id="sidebar">
+        <details>
+            <summary>Selecciona un Model</summary>
+            <img src="/assets/box1.png" class="thumbnail" data-model="/assets/box_test.glb" alt="Model 1">
+            <img src="/assets/conveyors straight final.png" class="thumbnail" data-model="/assets/conveyors straight final.glb" alt="Model 2">
+            <img src="/assets/conveyors straight 90 Rotation final.png" class="thumbnail" data-model="/assets/conveyors straight 90 Rotation final.glb" alt="Model 3">
+            <img src="/assets/Bifurcator.png" class="thumbnail" data-model="/assets/Bifurcator.glb" alt="Model 4">
+            <img src="/assets/Elevator.png" class="thumbnail" data-model="/assets/Elevator.glb" alt="Model 5">
+            <img src="/assets/Inclined conveyor.png" class="thumbnail" data-model="/assets/Inclined conveyor.glb" alt="Model 6">
+            <img src="/assets/Tall Bifurcator.png" class="thumbnail" data-model="/assets/Tall Bifurcator.glb" alt="Model 7">
+            <img src="/assets/Tall Straight  conveyor.png" class="thumbnail" data-model="/assets/Tall Straight  conveyor.glb" alt="Model 8">
+            <img src="/assets/Tall Straight 90 Rotation conveyor.png" class="thumbnail" data-model="/assets/Tall Straight 90 Rotation conveyor.glb" alt="Model 9">
+            <img src="/assets/Tall Union.png" class="thumbnail" data-model="/assets/Tall Union.glb" alt="Model 10">
+            <img src="/assets/Union2.png" class="thumbnail" data-model="/assets/Union2.glb" alt="Model 11">
+        </details>
+    </div>
+
+    <!-- Canvas principal -->
+    <div id="mainCanvas"></div>
+
+    <!-- Controls -->
+    <div id="controls">
+        <button id="startButton" class="control-button">
+            <img src="/assets/start_icon.png" alt="Start" class="button-image">
+        </button>
+        <button id="pauseButton" class="control-button">
+            <img src="/assets/pause_icon.png" alt="Pausa" class="button-image">
+        </button>
+        <button id="stopButton" class="control-button">
+            <img src="/assets/stop_icon.png" alt="Detenir" class="button-image">
+        </button>
+        <button id="doubleSpeedButton" class="control-button">
+            <img src="/assets/double_speed_icon.png" alt="2x Velocitat" class="button-image">
+        </button>
+        <div id="timer">00:00:00</div>
+    </div>
+
+    <!-- Carregar llibreries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <script src="~/js/simulator.js" asp-append-version="true"></script>
+</body>
+</html>
+
+
