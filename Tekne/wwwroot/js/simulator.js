@@ -15,6 +15,18 @@ document.getElementById('mainCanvas').appendChild(canvas);
 // Crear un pla invisible per calcular interseccions
 const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0); // Pla a Y = 0
 
+// Control de camara para el usuario:
+/*
+- Zoom: rueda raton
+- 'Arrastrar escena': click derecho
+- Rotar camara: Click y dejar presionado boton izquierdo del raton
+*/
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; // Habilitar amortiguación (suaviza el movimiento)
+controls.dampingFactor = 0.05;
+controls.rotateSpeed = 0.1;   // Ajustar velocidad de rotación
+
+
 
 function createGrid(width, height, cellSize) {
     const divisionsX = Math.floor(width / cellSize);  // Nombre de divisions en X
@@ -48,12 +60,21 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 directionalLight.position.set(10, 10, 10);
 scene.add(ambientLight, directionalLight);
 
-// Animació contínua
+//// Animació contínua
+//function animate() {
+//    renderer.render(scene, camera);
+//    requestAnimationFrame(animate);
+//}
+//animate();
+
 function animate() {
-    renderer.render(scene, camera);
     requestAnimationFrame(animate);
+
+    controls.update(); // Requerido si enableDamping está activado
+    renderer.render(scene, camera);
 }
 animate();
+
 
 const debugSphere = new THREE.Mesh(
     new THREE.SphereGeometry(0.1),
@@ -63,14 +84,28 @@ const debugSphere = new THREE.Mesh(
 //scene.add(debugSphere);
 
 
-
+/* Seleccionar elemento */
+let selectedModelPath = null; // Variable para guardar el modelo seleccionado
 // Gestiona clics als thumbnails per carregar models
 document.querySelectorAll('.thumbnail').forEach((thumbnail) => {
     thumbnail.addEventListener('click', () => {
-        const modelPath = thumbnail.dataset.model;
-        loadModel(modelPath);
+        // Escogemos el modelo (dejarlo seleccionado)
+        selectedModelPath = thumbnail.dataset.model;
+        loadModel(selectedModelPath);
+
+        document.querySelectorAll('.thumbnail').forEach((el) => el.classList.remove('selected')); // Deseleccionamos el resto de elementos
+        thumbnail.classList.add('selected'); // Marca el thumbnail actual como seleccionado
     });
 });
+
+///* Evento para anyadir el modelo */
+//document.addEventListener('click', (event) => {
+//    event.preventDefault(); // Evita el menú contextual del clic derecho
+//    if (selectedModelPath) {
+//        loadModel(selectedModelPath); // Añade una nueva instancia del modelo
+//    } 
+//});
+
 
 function calculateMousePosition(event) {
     const sidebarWidth = document.getElementById('sidebar').offsetWidth;
