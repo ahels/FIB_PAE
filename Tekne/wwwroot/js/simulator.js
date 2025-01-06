@@ -98,14 +98,6 @@ document.querySelectorAll('.thumbnail').forEach((thumbnail) => {
     });
 });
 
-///* Evento para anyadir el modelo */
-//document.addEventListener('click', (event) => {
-//    event.preventDefault(); // Evita el menú contextual del clic derecho
-//    if (selectedModelPath) {
-//        loadModel(selectedModelPath); // Añade una nueva instancia del modelo
-//    } 
-//});
-
 
 function calculateMousePosition(event) {
     const sidebarWidth = document.getElementById('sidebar').offsetWidth;
@@ -128,6 +120,12 @@ function calculateMousePosition(event) {
 
 // Funció per carregar un model
 function loadModel(modelPath) {
+    // Si hay un modelo en pantalla, eliminarlo antes de cargar uno nuevo
+    if (dragTarget) {
+        scene.remove(dragTarget);
+        dragTarget = null;
+    }
+
     loader.load(modelPath, (gltf) => {
         const model = gltf.scene;
         model.name = modelPath.split('.')[0];
@@ -203,9 +201,36 @@ window.addEventListener('keydown', (event) => {
 // Aturar el moviment del model quan es fa clic amb el botó esquerre del ratolí
 canvas.addEventListener("click", (event) => {
     if (event.button === 0) { // Botó esquerre del ratolí
+        if (event.defaultPrevented) return;
+
         dragTarget = null;
+
+        if (selectedModelPath)
+            loadModel(selectedModelPath); // Añade una nueva instancia del modelo
     }
 });
+
+// Al hacer click derecho, desactivar el model seleccionado
+canvas.addEventListener("contextmenu", (event) => {
+    if (selectedModelPath)
+        selectedModelPath = null; // Desactivar el modelo seleccionado
+
+    if (dragTarget) {
+        scene.remove(dragTarget);
+        dragTarget = null;
+    }
+
+    document.querySelectorAll('.thumbnail').forEach((el) => el.classList.remove('selected')); // Deseleccionamos el resto de elementos
+});
+
+
+///* Evento para anyadir el modelo */
+//document.addEventListener('click', (event) => {
+//    event.preventDefault(); // Evita el menú contextual del clic derecho
+//    if (selectedModelPath) {
+//        loadModel(selectedModelPath); // Añade una nueva instancia del modelo
+//    }
+//});
 
 
 
