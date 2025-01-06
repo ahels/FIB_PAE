@@ -147,8 +147,10 @@ function loadModel(modelPath) {
 
 
         const box = new THREE.Box3().setFromObject(model); // Caixa d'encapsulament del model
+        const size = box.getSize(new THREE.Vector3());
         const center = box.getCenter(new THREE.Vector3()); // Centre del model
         model.position.sub(center); // Ajustar la posició perquè el pivot quedi al centre
+        model.position.y = size.y / 2 - center.y; // Ajustar posición del modelo para que quede sobre el suelo
 
         const pivot = new THREE.Object3D(); // Crear el pivot
         pivot.add(model); // Afegir el model al pivot
