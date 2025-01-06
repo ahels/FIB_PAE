@@ -38,6 +38,7 @@ function createGrid(width, height, cellSize) {
     );
     gridHelper.position.set(0.5, 0, 0.5);
     gridHelper.scale.set(1.5, 1.5, 1.5);
+    gridHelper.isNonSelectable = true;
     scene.add(gridHelper);
 }
 
@@ -123,6 +124,13 @@ function loadModel(modelPath) {
     // Si hay un modelo en pantalla, eliminarlo antes de cargar uno nuevo
     if (dragTarget) {
         scene.remove(dragTarget);
+
+        // Buscar el índice del modelo en la lista de modelos
+        const index = models.indexOf(dragTarget);
+        if (index !== -1) {
+            models.splice(index, 1); // Eliminar el modelo de la lista
+        }
+
         dragTarget = null;
     }
 
@@ -198,6 +206,7 @@ window.addEventListener('keydown', (event) => {
 });
 
 
+var isDragging = false;
 // Aturar el moviment del model quan es fa clic amb el botó esquerre del ratolí
 canvas.addEventListener("click", (event) => {
     if (event.button === 0) { // Botó esquerre del ratolí
@@ -205,10 +214,35 @@ canvas.addEventListener("click", (event) => {
 
         dragTarget = null;
 
-        if (selectedModelPath)
+        if (selectedModelPath) {
             loadModel(selectedModelPath); // Añade una nueva instancia del modelo
+        }
+        else if (!isDragging) {
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(models, true); // 
+
+            if (intersects.length > 0) {
+
+                let obj = getParentGroup(intersects[0].object);
+
+                console.log(obj);
+
+                dragTarget = obj;
+
+                isDragging = true; // Comenzar a arrastrar
+            }
+        }
+        else if (isDragging)
+            isDragging = false;
     }
 });
+
+function getParentGroup(object) {
+    while (object.parent && !(object.parent instanceof THREE.Scene)) {
+        object = object.parent;
+    }
+    return object;
+}
 
 // Al hacer click derecho, desactivar el model seleccionado
 canvas.addEventListener("contextmenu", (event) => {
@@ -217,6 +251,13 @@ canvas.addEventListener("contextmenu", (event) => {
 
     if (dragTarget) {
         scene.remove(dragTarget);
+
+        // Buscar el índice del modelo en la lista de modelos
+        const index = models.indexOf(dragTarget);
+        if (index !== -1) {
+            models.splice(index, 1); // Eliminar el modelo de la lista
+        }
+
         dragTarget = null;
     }
 
