@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("HtmlParser")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("ProjectManager")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+58da2d878d2d4f75c70123aed15f5fc7e9281a61")]
-[assembly: System.Reflection.AssemblyProductAttribute("HtmlParser")]
-[assembly: System.Reflection.AssemblyTitleAttribute("HtmlParser")]
+[assembly: System.Reflection.AssemblyProductAttribute("ProjectManager")]
+[assembly: System.Reflection.AssemblyTitleAttribute("ProjectManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.

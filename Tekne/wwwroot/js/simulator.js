@@ -153,7 +153,7 @@ function loadModel(modelPath) {
 
         const pivot = new THREE.Object3D(); // Crear el pivot
         pivot.add(model); // Afegir el model al pivot
-        pivot.name = model.name
+        pivot.name = model.name;
         pivot.position.copy(model.position); // Posicionar el pivot on hauria d'estar el model
 
         pivot.orientacio = 0;

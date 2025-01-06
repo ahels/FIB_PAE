@@ -1,0 +1,3 @@
+C:\Users\andreu\source\repos\ahels\FIB_PAE\Tekne\obj\Debug\net8.0\Tekne.dll
+C:\Users\andreu\source\repos\ahels\FIB_PAE\Tekne\obj\Debug\net8.0\refint\Tekne.dll
+C:\Users\andreu\source\repos\ahels\FIB_PAE\Tekne\obj\Debug\net8.0\Tekne.pdb

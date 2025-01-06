@@ -1,0 +1,12 @@
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\bin\Debug\net8.0\HtmlParser.deps.json
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\bin\Debug\net8.0\HtmlParser.dll
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\bin\Debug\net8.0\HtmlParser.pdb
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\obj\Debug\net8.0\HtmlParser.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\obj\Debug\net8.0\HtmlParser.AssemblyInfoInputs.cache
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\obj\Debug\net8.0\HtmlParser.AssemblyInfo.cs
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\obj\Debug\net8.0\HtmlParser.csproj.CoreCompileInputs.cache
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\obj\Debug\net8.0\HtmlParser.sourcelink.json
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\obj\Debug\net8.0\HtmlParser.dll
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\obj\Debug\net8.0\refint\HtmlParser.dll
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\obj\Debug\net8.0\HtmlParser.pdb
+C:\Users\andreu\source\repos\ahels\FIB_PAE\htmlParser\obj\Debug\net8.0\ref\HtmlParser.dll
