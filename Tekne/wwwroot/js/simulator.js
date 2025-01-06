@@ -131,12 +131,13 @@ function loadModel(modelPath) {
     loader.load(modelPath, (gltf) => {
         const model = gltf.scene;
         model.name = modelPath.split('.')[0];
+        model.name = model.name.split('/')[2];
         model.position.set(0, 0, 0);
         model.scale.set(0.2, 0.2, 0.2);
 
 
 
-        if (model.name === "box test") { // Comprova si el model és box.glb
+        if (model.name === "box_test") { // Comprova si el model és box.glb
             model.traverse((child) => {
                 if (child.isMesh) {
                     child.material.depthTest = false; // Ignora profunditat
@@ -148,12 +149,12 @@ function loadModel(modelPath) {
 
         const box = new THREE.Box3().setFromObject(model); // Caixa d'encapsulament del model
         const center = box.getCenter(new THREE.Vector3()); // Centre del model
-        model.position.sub(center); // Ajustar la posició perquè el pivot quedi al centre
+        
 
         const pivot = new THREE.Object3D(); // Crear el pivot
         pivot.add(model); // Afegir el model al pivot
-        pivot.name = modelPath.split('.')[0];
-        pivot.position.copy(center); // Posicionar el pivot on hauria d'estar el model
+        pivot.name = model.name
+        pivot.position.copy(model.position); // Posicionar el pivot on hauria d'estar el model
 
         pivot.orientacio = 0;
 
@@ -228,7 +229,7 @@ function checkCollision(targetPivot) {
     const targetBox = new THREE.Box3().setFromObject(targetPivot); // Caixa que envolta el pivot
 
     for (const pivot of pivots) {
-        if (pivot !== targetPivot && pivot.name !== "box test") { // No comparar amb ell mateix
+        if (pivot !== targetPivot && pivot.name !== "box_test") { // No comparar amb ell mateix
             const pivotBox = new THREE.Box3().setFromObject(pivot);
             if (targetBox.intersectsBox(pivotBox)) { // Comprova col·lisió
                 return pivot.orientacio; // Col·lisió detectada
@@ -241,7 +242,7 @@ function checkCollision(targetPivot) {
 
 function moveCollidingPivots(speed) {
     pivots.forEach((pivot) => {
-        if (pivot.name === "box test") {
+        if (pivot.name === "box_test") {
             orientacio = checkCollision(pivot);
             switch (orientacio) {
                 case -1:
