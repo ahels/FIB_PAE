@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\Tekne\\Tekne.csproj": {}
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\Tekne\\Tekne.csproj": {}
   },
   "projects": {
-    "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\htmlParser\\HtmlParser.csproj": {
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\htmlParser\\HtmlParser.csproj",
+        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj",
         "projectName": "HtmlParser",
-        "projectPath": "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\htmlParser\\HtmlParser.csproj",
-        "packagesPath": "C:\\Users\\andreu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\htmlParser\\obj\\",
+        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj",
+        "packagesPath": "C:\\Users\\cdmalta\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\andreu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\cdmalta\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -43,8 +40,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -65,25 +61,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\ProjectManager\\ProjectManager.csproj": {
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\ProjectManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\ProjectManager\\ProjectManager.csproj",
+        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\ProjectManager.csproj",
         "projectName": "ProjectManager",
-        "projectPath": "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\ProjectManager\\ProjectManager.csproj",
-        "packagesPath": "C:\\Users\\andreu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\ProjectManager\\obj\\",
+        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\ProjectManager.csproj",
+        "packagesPath": "C:\\Users\\cdmalta\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\andreu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\cdmalta\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -91,6 +83,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -108,8 +101,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -136,25 +128,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\Tekne\\Tekne.csproj": {
+    "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\Tekne\\Tekne.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\Tekne\\Tekne.csproj",
+        "projectUniqueName": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\Tekne\\Tekne.csproj",
         "projectName": "Tekne",
-        "projectPath": "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\Tekne\\Tekne.csproj",
-        "packagesPath": "C:\\Users\\andreu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\Tekne\\obj\\",
+        "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\Tekne\\Tekne.csproj",
+        "packagesPath": "C:\\Users\\cdmalta\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\Tekne\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\andreu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\cdmalta\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -162,17 +150,18 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\htmlParser\\HtmlParser.csproj": {
-                "projectPath": "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\htmlParser\\HtmlParser.csproj"
+              "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj": {
+                "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\htmlParser\\HtmlParser.csproj"
               },
-              "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\ProjectManager\\ProjectManager.csproj": {
-                "projectPath": "C:\\Users\\andreu\\source\\repos\\ahels\\FIB_PAE\\ProjectManager\\ProjectManager.csproj"
+              "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\ProjectManager.csproj": {
+                "projectPath": "C:\\Users\\cdmalta\\main\\fib\\pae\\Tekne\\ProjectManager\\ProjectManager.csproj"
               }
             }
           }
@@ -186,8 +175,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -211,7 +199,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
