@@ -359,7 +359,7 @@ function mourecostatsBi(pivot, random, orientacio) {
  
         } // Mou l'objecte en l'eix X
         counter++; // Incrementa el comptador de moviments
-    }, 1000); // Executa cada 1000 ms (1 segon)
+    }, 800); // Executa cada 1000 ms (1 segon)
 
     pivot.bif = 0;
 }
@@ -381,7 +381,7 @@ function mourecostatsUn(pivot, random, orientacio) {
 
         } // Mou l'objecte en l'eix X
         counter++; // Incrementa el comptador de moviments
-    }, 1000); // Executa cada 1000 ms (1 segon)
+    }, 800); // Executa cada 1000 ms (1 segon)
 
     pivot.un = 0;
 }
@@ -399,7 +399,7 @@ function moureUp(pivot) {
 
         counter++; 
         
-    }, 1000); // Executa cada 600 ms 
+    }, 800); // Executa cada 600 ms 
 
     pivot.up = 0;
 
@@ -419,7 +419,7 @@ function moureDow(pivot) {
 
         counter++;
 
-    }, 1000); // Executa cada 600 ms 
+    }, 800); // Executa cada 600 ms 
 
     pivot.up = 0;
 
@@ -879,7 +879,7 @@ document.getElementById('startButton').addEventListener('click', () => {
 
             moveCollidingPivots(0.25 * speedMultiplier);
 
-        }, 1000 / speedMultiplier);
+        }, 800 / speedMultiplier);
     }
 });
 
