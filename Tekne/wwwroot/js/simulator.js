@@ -391,7 +391,7 @@ function moveCollidingPivots(speed) {
     pivots.forEach((pivot) => {
         if (pivot.name === "box_test" ) {
             collision = checkCollision(pivot);
-            if (collision && collision.name.indexOf("90") === -1) {
+            if (collision && collision.name.indexOf("90") === -1 ) {
                 switch (collision.orientacio) {
                     case 0:
                         pivot.position.z += speed; // Mou només el pivot que està en col·lisió
@@ -550,13 +550,15 @@ function moveCollidingPivots(speed) {
                                             mourecostatsUn(pivot, 1, 1)
                                         }
 
-                                        
+
                                         pivot.un = 1;
+                                    }
+                                    pivot.position.x += 2 * speed; // Mou només el pivot que està en col·lisió
+                                    break;
                                 }
-                            pivot.position.x += 2 * speed; // Mou només el pivot que està en col·lisió
-                            break;
-                        
-                        break;
+
+                                break;
+                        }
 
 
                     case "Tall Bifurcator":
@@ -597,7 +599,6 @@ function moveCollidingPivots(speed) {
 
                     
 
-                }
             }
             
 
