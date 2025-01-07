@@ -158,7 +158,7 @@ function loadModel(modelPath) {
         const size = box.getSize(new THREE.Vector3()); // Obtenim les dimensions del model
         const center = box.getCenter(new THREE.Vector3()); // Centre del model
         model.position.sub(center); // Ajustar la posició perquè el pivot quedi al centre
-        model.position.y = size.y / 2 - center.y; // Ajustar posición del modelo para que quede sobre el suelo
+        
 
         const pivot = new THREE.Object3D(); // Crear el pivot
         pivot.add(model); // Afegir el model al pivot
@@ -382,6 +382,7 @@ function mourecostatsUn(pivot, random, orientacio) {
     pivot.un = 0;
 }
 
+
 function abs(x, y) {
     if (x > y) return x - y;
     else return y - x;
@@ -389,7 +390,7 @@ function abs(x, y) {
 
 function moveCollidingPivots(speed) {
     pivots.forEach((pivot) => {
-        if (pivot.name === "box_test" ) {
+        if (pivot.name === "box_test") {
             collision = checkCollision(pivot);
             if (collision && collision.name.indexOf("90") === -1 ) {
                 switch (collision.orientacio) {
@@ -497,6 +498,40 @@ function moveCollidingPivots(speed) {
                                 pivot.position.x += 2 * speed; // Mou només el pivot que està en col·lisió
                                 break;
                         }
+
+                        break;
+                    case "Tall Bifurcator":
+                        if (isCenterInsideBoundingBox(pivot, collision)) {
+                            const randomIndex = Math.floor(Math.random() * 3) - 1;
+                            switch (collision.orientacio) {
+                                case 0:
+                                    if (pivot.bif === 0) {
+                                        mourecostatsBi(pivot, randomIndex, 0)
+                                        pivot.bif = 1;
+                                    }
+
+                                    break;
+                                case 90:
+                                    if (pivot.bif === 0) {
+                                        mourecostatsBi(pivot, randomIndex, 1)
+                                        pivot.bif = 1;
+                                    }
+                                    break;
+                                case 180:
+                                    if (pivot.bif === 0) {
+                                        mourecostatsBi(pivot, randomIndex, 0)
+                                        pivot.bif = 1;
+                                    }
+                                    break;
+                                case 270:
+                                    if (pivot.bif === 0) {
+                                        mourecostatsBi(pivot, randomIndex, 1)
+                                        pivot.bif = 1;
+                                    }
+                                    break;
+                            }
+                        }
+
                         break;
 
                     case "Tall Union":
@@ -541,64 +576,41 @@ function moveCollidingPivots(speed) {
                                 pivot.position.z += 2 * speed; // Mou només el pivot que està en col·lisió
                                 break;
                             case 270:
-                                if (pivot.bif === 0) {
-                                    if (pivot.un === 0) {
-                                        if (pivot.position.z > pivot.z + collision.position.z) {
-                                            mourecostatsUn(pivot, -1, 1)
-                                        }
-                                        else if (pivot.position.z < pivot.z + collision.position.z && abs(pivot.position.z, collision.position.z) > pivot.z) {
-                                            mourecostatsUn(pivot, 1, 1)
-                                        }
-
-
-                                        pivot.un = 1;
+                                if (pivot.un === 0) {
+                                    if (pivot.position.z > pivot.z + collision.position.z) {
+                                        mourecostatsUn(pivot, -1, 1)
                                     }
-                                    pivot.position.x += 2 * speed; // Mou només el pivot que està en col·lisió
-                                    break;
-                                }
+                                    else if (pivot.position.z < pivot.z + collision.position.z && abs(pivot.position.z, collision.position.z) > pivot.z) {
+                                        mourecostatsUn(pivot, 1, 1)
+                                    }
 
+                                    pivot.un = 1;
+                                }
+                                pivot.position.x += 2 * speed; // Mou només el pivot que està en col·lisió
+                                break;
+                        }
+                        break;
+
+
+
+                    case "conveyors straight 90 Rotation final":
+                        switch (collision.orientacio) {
+                            case 0:
+                                pivot.position.z += speed; // Mou només el pivot que està en col·lisió
+                                break;
+                            case 90:
+                                pivot.position.x += speed; // Mou només el pivot que està en col·lisió
+                                break;
+                            case 180:
+                                pivot.position.z -= speed; // Mou només el pivot que està en col·lisió
+                                break;
+                            case 270:
+                                pivot.position.x -= speed; // Mou només el pivot que està en col·lisió
                                 break;
                         }
 
 
-                    case "Tall Bifurcator":
-                        if (isCenterInsideBoundingBox(pivot, collision)) {
-                            const randomIndex = Math.floor(Math.random() * 3) - 1;
-                            switch (collision.orientacio) {
-                                case 0:
-                                    if (pivot.bif === 0) {
-                                        mourecostatsBi(pivot, randomIndex, 0)
-                                        pivot.bif = 1;
-                                    }
-
-                                    break;
-                                case 90:
-                                    if (pivot.bif === 0) {
-                                        mourecostatsBi(pivot, randomIndex, 1)
-                                        pivot.bif = 1;
-                                    }
-                                    break;
-                                case 180:
-                                    if (pivot.bif === 0) {
-                                        mourecostatsBi(pivot, randomIndex, 0)
-                                        pivot.bif = 1;
-                                    }
-                                    break;
-                                case 270:
-                                    if (pivot.bif === 0) {
-                                        mourecostatsBi(pivot, randomIndex, 1)
-                                        pivot.bif = 1;
-                                    }
-                                    break;
-                            }
-                        }
-
-                        break;
                 }
-                break;
-
-                    
-
             }
             
 
