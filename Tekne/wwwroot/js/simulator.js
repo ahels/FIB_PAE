@@ -45,6 +45,7 @@ function createGrid(width, height, cellSize) {
     );
     gridHelper.position.set(0.5, 0, 0.5);
     gridHelper.scale.set(1.5, 1.5, 1.5);
+    gridHelper.isNonSelectable = true;
     scene.add(gridHelper);
 }
 
@@ -99,14 +100,6 @@ document.querySelectorAll('.thumbnail').forEach((thumbnail) => {
     });
 });
 
-///* Evento para anyadir el modelo */
-//document.addEventListener('click', (event) => {
-//    event.preventDefault(); // Evita el menú contextual del clic derecho
-//    if (selectedModelPath) {
-//        loadModel(selectedModelPath); // Añade una nueva instancia del modelo
-//    } 
-//});
-
 
 function calculateMousePosition(event) {
     const sidebarWidth = document.getElementById('sidebar').offsetWidth;
@@ -129,6 +122,19 @@ function calculateMousePosition(event) {
 
 // Funció per carregar un model
 function loadModel(modelPath) {
+    // Si hay un modelo en pantalla, eliminarlo antes de cargar uno nuevo
+    if (dragTarget) {
+        scene.remove(dragTarget);
+
+        // Buscar el índice del modelo en la lista de modelos
+        const index = models.indexOf(dragTarget);
+        if (index !== -1) {
+            models.splice(index, 1); // Eliminar el modelo de la lista
+        }
+
+        dragTarget = null;
+    }
+
     loader.load(modelPath, (gltf) => {
         const model = gltf.scene;
         model.name = modelPath.split('.')[0];
@@ -152,6 +158,7 @@ function loadModel(modelPath) {
         const size = box.getSize(new THREE.Vector3()); // Obtenim les dimensions del model
         const center = box.getCenter(new THREE.Vector3()); // Centre del model
         model.position.sub(center); // Ajustar la posició perquè el pivot quedi al centre
+        model.position.y = size.y / 2 - center.y; // Ajustar posición del modelo para que quede sobre el suelo
 
         const pivot = new THREE.Object3D(); // Crear el pivot
         pivot.add(model); // Afegir el model al pivot
@@ -230,12 +237,72 @@ window.addEventListener('keydown', (event) => {
 });
 
 
+var isDragging = false;
 // Aturar el moviment del model quan es fa clic amb el botó esquerre del ratolí
 canvas.addEventListener("click", (event) => {
     if (event.button === 0) { // Botó esquerre del ratolí
+        if (event.defaultPrevented) return;
+
         dragTarget = null;
+
+        if (selectedModelPath) {
+            loadModel(selectedModelPath); // Añade una nueva instancia del modelo
+        }
+        else if (!isDragging) {
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(models, true); // 
+
+            if (intersects.length > 0) {
+
+                let obj = getParentGroup(intersects[0].object);
+
+                console.log(obj);
+
+                dragTarget = obj;
+
+                isDragging = true; // Comenzar a arrastrar
+            }
+        }
+        else if (isDragging)
+            isDragging = false;
     }
 });
+
+function getParentGroup(object) {
+    while (object.parent && !(object.parent instanceof THREE.Scene)) {
+        object = object.parent;
+    }
+    return object;
+}
+
+// Al hacer click derecho, desactivar el model seleccionado
+canvas.addEventListener("contextmenu", (event) => {
+    if (selectedModelPath)
+        selectedModelPath = null; // Desactivar el modelo seleccionado
+
+    if (dragTarget) {
+        scene.remove(dragTarget);
+
+        // Buscar el índice del modelo en la lista de modelos
+        const index = models.indexOf(dragTarget);
+        if (index !== -1) {
+            models.splice(index, 1); // Eliminar el modelo de la lista
+        }
+
+        dragTarget = null;
+    }
+
+    document.querySelectorAll('.thumbnail').forEach((el) => el.classList.remove('selected')); // Deseleccionamos el resto de elementos
+});
+
+
+///* Evento para anyadir el modelo */
+//document.addEventListener('click', (event) => {
+//    event.preventDefault(); // Evita el menú contextual del clic derecho
+//    if (selectedModelPath) {
+//        loadModel(selectedModelPath); // Añade una nueva instancia del modelo
+//    }
+//});
 
 
 
