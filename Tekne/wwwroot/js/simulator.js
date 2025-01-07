@@ -32,7 +32,7 @@ const debugSphere = new THREE.Mesh(
     new THREE.MeshBasicMaterial({ color: 0xff0000 })
 );
 
-scene.add(debugSphere);
+//scene.add(debugSphere);
 
 
 function createGrid(width, height, cellSize) {
@@ -171,6 +171,9 @@ function loadModel(modelPath) {
         pivot.z = size.z;
         pivot.bif = 0;
         pivot.un = 0;
+        pivot.direccio = 0;
+        pivot.canvidir = false;
+        pivot.up = 0;
 
         scene.add(pivot);
         models.push(model); // Afegim el pivot a la llista
@@ -211,7 +214,8 @@ canvas.addEventListener("mousemove", (event) => {
                 }
             }
             else {
-                dragTarget.position.set(intersectionPoint.x, (dragTarget.height / 2), intersectionPoint.z);
+                if (dragTarget.name === "Inclined conveyor") dragTarget.position.set(intersectionPoint.x, 0.70, intersectionPoint.z);
+                else dragTarget.position.set(intersectionPoint.x, (dragTarget.height / 2), intersectionPoint.z);
             }
 
         }
@@ -382,6 +386,45 @@ function mourecostatsUn(pivot, random, orientacio) {
     pivot.un = 0;
 }
 
+function moureUp(pivot) {
+    let counter = 0; // Comptador de moviments
+    const interval = setInterval(() => {
+        if (counter >= 25) {
+            clearInterval(interval); // Atura el moviment després de 5 segons
+            return;
+        }
+
+        pivot.position.y += 0.08 * speedMultiplier;
+        
+
+        counter++; 
+        
+    }, 1000); // Executa cada 600 ms 
+
+    pivot.up = 0;
+
+}
+
+
+function moureDow(pivot) {
+    let counter = 0; // Comptador de moviments
+    const interval = setInterval(() => {
+        if (counter >= 28) {
+            clearInterval(interval); // Atura el moviment després de 5 segons
+            return;
+        }
+
+        if(counter > 3) pivot.position.y -= 0.08 * speedMultiplier;
+
+
+        counter++;
+
+    }, 1000); // Executa cada 600 ms 
+
+    pivot.up = 0;
+
+}
+
 
 function abs(x, y) {
     if (x > y) return x - y;
@@ -392,20 +435,30 @@ function moveCollidingPivots(speed) {
     pivots.forEach((pivot) => {
         if (pivot.name === "box_test") {
             collision = checkCollision(pivot);
-            if (collision && collision.name.indexOf("90") === -1 ) {
-                switch (collision.orientacio) {
-                    case 0:
-                        pivot.position.z += speed; // Mou només el pivot que està en col·lisió
-                        break;
-                    case 90:
-                        pivot.position.x += speed; // Mou només el pivot que està en col·lisió
-                        break;
-                    case 180:
-                        pivot.position.z -= speed; // Mou només el pivot que està en col·lisió
-                        break;
-                    case 270:
-                        pivot.position.x -= speed; // Mou només el pivot que està en col·lisió
-                        break;
+            if (collision) {
+                if (collision.name.indexOf("90") === -1 && collision.name.indexOf("Inclined") === -1) {
+                    switch (collision.orientacio) {
+                        case 0:
+                            pivot.position.z += speed; // Mou només el pivot que està en col·lisió
+                            pivot.direccio = 0;
+                            pivot.canvidir = false;
+                            break;
+                        case 90:
+                            pivot.position.x += speed; // Mou només el pivot que està en col·lisió
+                            pivot.direccio = 1;
+                            pivot.canvidir = false;
+                            break;
+                        case 180:
+                            pivot.position.z -= speed; // Mou només el pivot que està en col·lisió
+                            pivot.direccio = 2;
+                            pivot.canvidir = false;
+                            break;
+                        case 270:
+                            pivot.position.x -= speed; // Mou només el pivot que està en col·lisió
+                            pivot.direccio = 3;
+                            pivot.canvidir = false;
+                            break;
+                    }
                 }
 
                 switch (collision.name) {
@@ -596,19 +649,216 @@ function moveCollidingPivots(speed) {
                     case "conveyors straight 90 Rotation final":
                         switch (collision.orientacio) {
                             case 0:
-                                pivot.position.z += speed; // Mou només el pivot que està en col·lisió
+                                if (isCenterInsideBoundingBox(pivot, collision) || pivot.canvidir) {
+                                    if (pivot.direccio === 2) {
+                                        pivot.position.x -= speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                    else {
+                                        pivot.position.z += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                }
+
+                                else {
+                                    if (pivot.direccio === 2) pivot.position.z -= speed;
+                                    else pivot.position.x += speed;
+                                }
+
+
                                 break;
                             case 90:
-                                pivot.position.x += speed; // Mou només el pivot que està en col·lisió
+                                if (isCenterInsideBoundingBox(pivot, collision) || pivot.canvidir) {
+                                    if (pivot.direccio === 2) {
+                                        pivot.position.x += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                    else {
+                                        pivot.position.z += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                }
+
+                                else {
+                                    if (pivot.direccio === 2) pivot.position.z -= speed;
+                                    else pivot.position.x -= speed;
+                                }
+
+
+
                                 break;
                             case 180:
-                                pivot.position.z -= speed; // Mou només el pivot que està en col·lisió
+                                if (isCenterInsideBoundingBox(pivot, collision) || pivot.canvidir) {
+                                    if (pivot.direccio === 0) {
+                                        pivot.position.x += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                    else {
+                                        pivot.position.z -= speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                }
+
+                                else {
+                                    if (pivot.direccio === 0) pivot.position.z += speed;
+                                    else pivot.position.x -= speed;
+                                }
+
+
                                 break;
                             case 270:
-                                pivot.position.x -= speed; // Mou només el pivot que està en col·lisió
+                                if (isCenterInsideBoundingBox(pivot, collision) || pivot.canvidir) {
+                                    if (pivot.direccio === 0) {
+                                        pivot.position.x += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                    else {
+                                        pivot.position.z += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                }
+                                else {
+                                    if (pivot.direccio === 0) pivot.position.z -= speed;
+                                    else pivot.position.x -= speed;
+
+                                }
+
+
                                 break;
                         }
 
+                        break;
+
+                    case "Tall Straight 90 Rotation conveyor":
+                        switch (collision.orientacio) {
+                            case 0:
+                                if (isCenterInsideBoundingBox(pivot, collision) || pivot.canvidir) {
+                                    if (pivot.direccio === 2) {
+                                        pivot.position.x -= speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                    else {
+                                        pivot.position.z += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                }
+
+                                else {
+                                    if (pivot.direccio === 2) pivot.position.z -= speed;
+                                    else pivot.position.x += speed;
+                                }
+
+
+                                break;
+                            case 90:
+                                if (isCenterInsideBoundingBox(pivot, collision) || pivot.canvidir) {
+                                    if (pivot.direccio === 2) {
+                                        pivot.position.x += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                    else {
+                                        pivot.position.z += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                }
+
+                                else {
+                                    if (pivot.direccio === 2) pivot.position.z -= speed;
+                                    else pivot.position.x -= speed;
+                                }
+
+
+
+                                break;
+                            case 180:
+                                if (isCenterInsideBoundingBox(pivot, collision) || pivot.canvidir) {
+                                    if (pivot.direccio === 0) {
+                                        pivot.position.x += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                    else {
+                                        pivot.position.z -= speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                }
+
+                                else {
+                                    if (pivot.direccio === 0) pivot.position.z += speed;
+                                    else pivot.position.x -= speed;
+                                }
+
+
+                                break;
+                            case 270:
+                                if (isCenterInsideBoundingBox(pivot, collision) || pivot.canvidir) {
+                                    if (pivot.direccio === 0) {
+                                        pivot.position.x += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                    else {
+                                        pivot.position.z += speed;
+                                        pivot.canvidir = true;
+
+                                    }
+                                }
+                                else {
+                                    if (pivot.direccio === 0) pivot.position.z -= speed;
+                                    else pivot.position.x -= speed;
+
+                                }
+
+
+                                break;
+                        }
+
+                        break;
+                    case "Inclined conveyor":
+                        switch (pivot.direccio) {
+                            case 0:
+                                pivot.position.z += speed; // Mou només el pivot que està en col·lisió
+                                pivot.direccio = 0;
+                                pivot.canvidir = false;
+                                break;
+                            case 1:
+                                pivot.position.x += speed; // Mou només el pivot que està en col·lisió
+                                pivot.direccio = 1;
+                                pivot.canvidir = false;
+                                break;
+                            case 2:
+                                pivot.position.z -= speed; // Mou només el pivot que està en col·lisió
+                                pivot.direccio = 2;
+                                pivot.canvidir = false;
+                                break;
+                            case 3:
+                                pivot.position.x -= speed; // Mou només el pivot que està en col·lisió
+                                pivot.direccio = 3;
+                                pivot.canvidir = false;
+                                break;
+                        }
+                        if (pivot.up === 0) {
+                            if (pivot.position.y < 2) moureUp(pivot);
+                            else moureDow(pivot);
+                            pivot.up = 1;
+                        }
+
+                        
+
+                        break;
 
                 }
             }
