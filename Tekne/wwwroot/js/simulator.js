@@ -170,6 +170,7 @@ function loadModel(modelPath) {
         pivot.x = size.x;
         pivot.z = size.z;
         pivot.bif = 0;
+        pivot.un = 0;
 
         scene.add(pivot);
         models.push(model); // Afegim el pivot a la llista
@@ -337,7 +338,7 @@ function isCenterInsideBoundingBox(modelA, modelB) {
     return boxA.containsPoint(pointToCheck);
 }
 
-function mourecostats(pivot, random, orientacio) {
+function mourecostatsBi(pivot, random, orientacio) {
     let counter = 0; // Comptador de moviments
     const interval = setInterval(() => {
         if (counter >= 6) {
@@ -359,6 +360,28 @@ function mourecostats(pivot, random, orientacio) {
     pivot.bif = 0;
 }
 
+function mourecostatsUn(pivot, random, orientacio) {
+    let counter = 0; // Comptador de moviments
+    const interval = setInterval(() => {
+        if (counter >= 6) {
+            clearInterval(interval); // Atura el moviment després de 5 segons
+            return;
+        }
+        switch (orientacio) {
+            case 0:
+                pivot.position.x += 0.25 * speedMultiplier * random; // Mou només el pivot que està en col·lisió
+                break;
+            case 1:
+                pivot.position.z += 0.25 * speedMultiplier * random; // Mou només el pivot que està en col·lisió
+                break;
+
+        } // Mou l'objecte en l'eix X
+        counter++; // Incrementa el comptador de moviments
+    }, 1000); // Executa cada 1000 ms (1 segon)
+
+    pivot.un = 0;
+}
+
 function abs(x, y) {
     if (x > y) return x - y;
     else return y - x;
@@ -366,9 +389,9 @@ function abs(x, y) {
 
 function moveCollidingPivots(speed) {
     pivots.forEach((pivot) => {
-        if (pivot.name === "box_test") {
+        if (pivot.name === "box_test" ) {
             collision = checkCollision(pivot);
-            if (collision) {
+            if (collision && collision.name.indexOf("90") === -1) {
                 switch (collision.orientacio) {
                     case 0:
                         pivot.position.z += speed; // Mou només el pivot que està en col·lisió
@@ -391,26 +414,26 @@ function moveCollidingPivots(speed) {
                             switch (collision.orientacio) {
                                 case 0:
                                     if (pivot.bif === 0) {
-                                        mourecostats(pivot, randomIndex, 0)
+                                        mourecostatsBi(pivot, randomIndex, 0)
                                         pivot.bif = 1;
                                     }
                                     
                                     break;
                                 case 90:
                                     if (pivot.bif === 0) {
-                                        mourecostats(pivot, randomIndex, 1)
+                                        mourecostatsBi(pivot, randomIndex, 1)
                                         pivot.bif = 1;
                                     }
                                     break;
                                 case 180:
                                     if (pivot.bif === 0) {
-                                        mourecostats(pivot, randomIndex, 0)
+                                        mourecostatsBi(pivot, randomIndex, 0)
                                         pivot.bif = 1;
                                     }
                                     break;
                                 case 270:
                                     if (pivot.bif === 0) {
-                                        mourecostats(pivot, randomIndex, 1)
+                                        mourecostatsBi(pivot, randomIndex, 1)
                                         pivot.bif = 1;
                                     }
                                     break;
@@ -422,58 +445,157 @@ function moveCollidingPivots(speed) {
                     case "Union2":
                         switch (collision.orientacio) {
                             case 0:
-                                if (pivot.bif === 0) {
+                                if (pivot.un === 0) {
                                     if (pivot.position.x > pivot.x + collision.position.x) {
-                                        mourecostats(pivot, -1, 0)
+                                        mourecostatsUn(pivot, -1, 0)
                                     }
                                     else if (pivot.position.x < pivot.x + collision.position.x && abs(pivot.position.x, collision.position.x) > pivot.x) {
-                                        mourecostats(pivot, 1, 0)
+                                        mourecostatsUn(pivot, 1, 0)
                                     }
 
-                                    pivot.bif = 1;
+                                    pivot.un = 1;
                                 }
-                                pivot.position.z -= 2*speed; // Mou només el pivot que està en col·lisió
+                                pivot.position.z -= 2 * speed; // Mou només el pivot que està en col·lisió
                                 break;
                             case 90:
-                                if (pivot.bif === 0) {
+                                if (pivot.un === 0) {
                                     if (pivot.position.z > pivot.z + collision.position.z) {
-                                        mourecostats(pivot, -1, 1)
+                                        mourecostatsUn(pivot, -1, 1)
                                     }
                                     else if (pivot.position.z < pivot.z + collision.position.z && abs(pivot.position.z, collision.position.z) > pivot.z) {
-                                        mourecostats(pivot, 1, 1)
+                                        mourecostatsUn(pivot, 1, 1)
                                     }
 
-                                    pivot.bif = 1;
+                                    pivot.un = 1;
                                 }
-                                pivot.position.x -= 2*speed; // Mou només el pivot que està en col·lisió
+                                pivot.position.x -= 2 * speed; // Mou només el pivot que està en col·lisió
                                 break;
                             case 180:
-                                if (pivot.bif === 0) {
+                                if (pivot.un === 0) {
                                     if (pivot.position.x > pivot.x + collision.position.x) {
-                                        mourecostats(pivot, -1, 0)
-                                    } 
-                                    else if (pivot.position.x < pivot.x + collision.position.x && abs(pivot.position.x, collision.position.x) > pivot.x) {
-                                        mourecostats(pivot, 1, 0)
+                                        mourecostatsUn(pivot, -1, 0)
                                     }
-                                    
-                                    pivot.bif = 1;
+                                    else if (pivot.position.x < pivot.x + collision.position.x && abs(pivot.position.x, collision.position.x) > pivot.x) {
+                                        mourecostatsUn(pivot, 1, 0)
+                                    }
+
+                                    pivot.un = 1;
                                 }
-                                pivot.position.z += 2*speed; // Mou només el pivot que està en col·lisió
+                                pivot.position.z += 2 * speed; // Mou només el pivot que està en col·lisió
+                                break;
+                            case 270:
+                                if (pivot.un === 0) {
+                                    if (pivot.position.z > pivot.z + collision.position.z) {
+                                        mourecostatsUn(pivot, -1, 1)
+                                    }
+                                    else if (pivot.position.z < pivot.z + collision.position.z && abs(pivot.position.z, collision.position.z) > pivot.z) {
+                                        mourecostatsUn(pivot, 1, 1)
+                                    }
+
+                                    pivot.un = 1;
+                                }
+                                pivot.position.x += 2 * speed; // Mou només el pivot que està en col·lisió
+                                break;
+                        }
+                        break;
+
+                    case "Tall Union":
+                        switch (collision.orientacio) {
+                            case 0:
+                                if (pivot.un === 0) {
+                                    if (pivot.position.x > pivot.x + collision.position.x) {
+                                        mourecostatsUn(pivot, -1, 0)
+                                    }
+                                    else if (pivot.position.x < pivot.x + collision.position.x && abs(pivot.position.x, collision.position.x) > pivot.x) {
+                                        mourecostatsUn(pivot, 1, 0)
+                                    }
+
+                                    pivot.un = 1;
+                                }
+                                pivot.position.z -= 2 * speed; // Mou només el pivot que està en col·lisió
+                                break;
+                            case 90:
+                                if (pivot.un === 0) {
+                                    if (pivot.position.z > pivot.z + collision.position.z) {
+                                        mourecostatsUn(pivot, -1, 1)
+                                    }
+                                    else if (pivot.position.z < pivot.z + collision.position.z && abs(pivot.position.z, collision.position.z) > pivot.z) {
+                                        mourecostatsUn(pivot, 1, 1)
+                                    }
+
+                                    pivot.un = 1;
+                                }
+                                pivot.position.x -= 2 * speed; // Mou només el pivot que està en col·lisió
+                                break;
+                            case 180:
+                                if (pivot.un === 0) {
+                                    if (pivot.position.x > pivot.x + collision.position.x) {
+                                        mourecostatsUn(pivot, -1, 0)
+                                    }
+                                    else if (pivot.position.x < pivot.x + collision.position.x && abs(pivot.position.x, collision.position.x) > pivot.x) {
+                                        mourecostatsUn(pivot, 1, 0)
+                                    }
+
+                                    pivot.un = 1;
+                                }
+                                pivot.position.z += 2 * speed; // Mou només el pivot que està en col·lisió
                                 break;
                             case 270:
                                 if (pivot.bif === 0) {
-                                    if (pivot.position.z > pivot.z + collision.position.z) {
-                                        mourecostats(pivot, -1, 1)
-                                    }
-                                    else if (pivot.position.z < pivot.z + collision.position.z && abs(pivot.position.z, collision.position.z) > pivot.z) {
-                                        mourecostats(pivot, 1, 1)
+                                    if (pivot.un === 0) {
+                                        if (pivot.position.z > pivot.z + collision.position.z) {
+                                            mourecostatsUn(pivot, -1, 1)
+                                        }
+                                        else if (pivot.position.z < pivot.z + collision.position.z && abs(pivot.position.z, collision.position.z) > pivot.z) {
+                                            mourecostatsUn(pivot, 1, 1)
+                                        }
+
+                                        
+                                        pivot.un = 1;
+                                }
+                            pivot.position.x += 2 * speed; // Mou només el pivot que està en col·lisió
+                            break;
+                        
+                        break;
+
+
+                    case "Tall Bifurcator":
+                        if (isCenterInsideBoundingBox(pivot, collision)) {
+                            const randomIndex = Math.floor(Math.random() * 3) - 1;
+                            switch (collision.orientacio) {
+                                case 0:
+                                    if (pivot.bif === 0) {
+                                        mourecostatsBi(pivot, randomIndex, 0)
+                                        pivot.bif = 1;
                                     }
 
-                                    pivot.bif = 1;
-                                }
-                                pivot.position.x += 2*speed; // Mou només el pivot que està en col·lisió
-                                break;
+                                    break;
+                                case 90:
+                                    if (pivot.bif === 0) {
+                                        mourecostatsBi(pivot, randomIndex, 1)
+                                        pivot.bif = 1;
+                                    }
+                                    break;
+                                case 180:
+                                    if (pivot.bif === 0) {
+                                        mourecostatsBi(pivot, randomIndex, 0)
+                                        pivot.bif = 1;
+                                    }
+                                    break;
+                                case 270:
+                                    if (pivot.bif === 0) {
+                                        mourecostatsBi(pivot, randomIndex, 1)
+                                        pivot.bif = 1;
+                                    }
+                                    break;
+                            }
                         }
+
+                        break;
+                }
+                break;
+
+                    
 
                 }
             }
