@@ -1,5 +1,6 @@
 ﻿@page
 @model Tekne.Pages.SimulatorModel
+@Html.AntiForgeryToken()
 @{
 
 }
@@ -17,7 +18,7 @@
     <!-- Panell lateral -->
     <div id="sidebar">
         <details>
-            <summary>Selecciona un Model</summary>
+            <summary>Select a model:</summary>
             <img src="/assets/box1.png" class="thumbnail" data-model="/assets/box_test.glb" alt="Model 1">
             <img src="/assets/conveyors straight final.png" class="thumbnail" data-model="/assets/conveyors straight final.glb" alt="Model 2">
             <img src="/assets/conveyors straight 90 Rotation final.png" class="thumbnail" data-model="/assets/conveyors straight 90 Rotation final.glb" alt="Model 3">
@@ -37,19 +38,30 @@
 
     <!-- Controls -->
     <div id="controls">
-        <button id="startButton" class="control-button">
-            <img src="/assets/start_icon.png" alt="Start" class="button-image">
-        </button>
-        <button id="pauseButton" class="control-button">
-            <img src="/assets/pause_icon.png" alt="Pausa" class="button-image">
-        </button>
-        <button id="stopButton" class="control-button">
-            <img src="/assets/stop_icon.png" alt="Detenir" class="button-image">
-        </button>
-        <button id="doubleSpeedButton" class="control-button">
-            <img src="/assets/double_speed_icon.png" alt="2x Velocitat" class="button-image">
-        </button>
-        <div id="timer">00:00:00</div>
+        <div></div>
+        <div class="center-buttons">
+            <button id="startButton" class="control-button">
+                <img src="/assets/start_icon.png" alt="Start" class="button-image">
+            </button>
+            <button id="pauseButton" class="control-button">
+                <img src="/assets/pause_icon.png" alt="Pausa" class="button-image">
+            </button>
+            <button id="stopButton" class="control-button">
+                <img src="/assets/stop_icon.png" alt="Detenir" class="button-image">
+            </button>
+            <button id="doubleSpeedButton" class="control-button">
+                <img src="/assets/double_speed_icon.png" alt="2x Velocitat" class="button-image">
+            </button>
+            <div id="timer">00:00:00</div>
+        </div>
+        <div class="right-buttons">
+            <button id="saveButton" onclick="save();">
+                Save
+            </button>
+            <button id="exitButton" onclick="exit();">
+                Exit
+            </button>
+        </div>
     </div>
 
     <!-- Carregar llibreries -->
@@ -57,6 +69,7 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/simulator.js" asp-append-version="true"></script>
 </body>
 </html>

@@ -923,3 +923,77 @@ window.addEventListener("resize", () => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth - 200, window.innerHeight - 50);
 });
+
+
+
+// Guardar la escena
+//function save()
+//{
+//    const sceneJSON = scene.toJSON();
+//    const sceneString = JSON.stringify(sceneJSON);
+
+//    //data: JSON.stringify({ tete: "hola" }),
+//    let mivar = "hola";
+//    $.ajax({
+//        type: "POST",
+//        url: '/Simulator?handler=Save',
+//        //contentType: "application/json; charset=utf-8",
+//        data: { tete: mivar },
+//        //data: JSON.stringify({ tete: mivar }),
+//        beforeSend: function (xhr) {
+//            xhr.setRequestHeader("XSRF-TOKEN",
+//                $('input:hidden[name="__RequestVerificationToken"]').val());
+//        },
+//        //dataType: "json"
+
+//    }).done(function (data) {
+//        console.log(data.result);
+//    });
+//}
+
+function save() {
+    const sceneJSON = scene.toJSON();
+    const sceneString = JSON.stringify(sceneJSON);
+
+    const formData = new FormData();
+    formData.append('sceneData', sceneString);
+    formData.append('__RequestVerificationToken', $('input[name="__RequestVerificationToken"]').val());
+
+    $.ajax({
+        type: "POST",
+        url: '/Simulator?handler=Save',
+        data: formData,
+        processData: false,  // Impide que jQuery procese los datos automáticamente
+        contentType: false,  // Deja que el navegador maneje el tipo de contenido
+        beforeSend: function (xhr) {
+            // No necesitamos hacer nada más aquí, ya que estamos enviando con FormData
+        },
+        dataType: "json",
+        success: function (data) {
+            console.log(data.result);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error:", status, error); // Mostrar detalles del error
+            console.error("Response text:", xhr.responseText); // Mostrar respuesta del servidor
+        }
+    });
+}
+
+function exit()
+{
+    window.location.href = "/Projects";
+}
+
+
+function test_load(jsonString) {
+    const sceneData = JSON.parse(jsonString);
+    const loader = new THREE.ObjectLoader();
+    const loadedScene = loader.parse(sceneData);
+    /*scene = loadedScene;*/
+
+    loadedScene.children.forEach(child => {
+        scene.add(child);  // Agrega los elementos cargados a la escena original
+    });
+
+    renderer.render(scene, camera);
+}

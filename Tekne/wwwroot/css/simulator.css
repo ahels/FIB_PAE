@@ -63,9 +63,19 @@ details {
     background-color: #f4f4f4;
     border-top: 2px solid #ddd;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
+}
+
+.center-buttons {
+    display: flex;
+    justify-content: center;
+    padding-left: 320px;
+}
+
+.right-buttons{
+    padding-right: 20px;
 }
 
 #timer {

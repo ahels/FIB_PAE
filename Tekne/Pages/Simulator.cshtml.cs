@@ -9,7 +9,6 @@ namespace Tekne.Pages
 {
     public class SimulatorModel : PageModel
     {
-        LstProjects projects;
 
         public void OnGet()
         {
@@ -23,13 +22,18 @@ namespace Tekne.Pages
             //ViewData["Table"] = tbl.to_html();
         }
 
-        //public void OnPost()
-        //{
-        //    //ViewData[]
-        //    projects = new LstProjects();
-        //    projects.load_json("/DB/projects.json");
-        //    DataTable dt_prjs = projects.to_datatable();
-        //    HtmlTable tbl = new HtmlTable("test", "test", dt_prjs);
-        //}
+        public IActionResult OnPostSave(string sceneData)
+        {
+            LstProjects projects = new LstProjects();
+            string base_path = Directory.GetCurrentDirectory();
+            string path = base_path + "\\DB\\projects.json";
+
+            projects.load_json(path);
+            projects.add_project("new", sceneData);
+            projects.save_json(path);
+
+            return new JsonResult(new { result = "OnPostSave CALLED" });
+        }
+
     }
 }
