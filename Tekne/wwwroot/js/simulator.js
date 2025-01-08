@@ -214,8 +214,7 @@ canvas.addEventListener("mousemove", (event) => {
                 }
             }
             else {
-                if (dragTarget.name === "Inclined conveyor") dragTarget.position.set(intersectionPoint.x, 0.70, intersectionPoint.z);
-                else dragTarget.position.set(intersectionPoint.x, (dragTarget.height / 2), intersectionPoint.z);
+                dragTarget.position.set(intersectionPoint.x, (dragTarget.height / 2), intersectionPoint.z);
             }
 
         }
@@ -389,12 +388,12 @@ function mourecostatsUn(pivot, random, orientacio) {
 function moureUp(pivot) {
     let counter = 0; // Comptador de moviments
     const interval = setInterval(() => {
-        if (counter >= 25) {
+        if (counter >= 29) {
             clearInterval(interval); // Atura el moviment després de 5 segons
             return;
         }
 
-        pivot.position.y += 0.08 * speedMultiplier;
+        if (counter > 3)  pivot.position.y += 0.08 * speedMultiplier;
         
 
         counter++; 
@@ -409,12 +408,12 @@ function moureUp(pivot) {
 function moureDow(pivot) {
     let counter = 0; // Comptador de moviments
     const interval = setInterval(() => {
-        if (counter >= 28) {
+        if (counter >= 31) {
             clearInterval(interval); // Atura el moviment després de 5 segons
             return;
         }
 
-        if(counter > 3) pivot.position.y -= 0.08 * speedMultiplier;
+        if(counter > 6) pivot.position.y -= 0.08 * speedMultiplier;
 
 
         counter++;
